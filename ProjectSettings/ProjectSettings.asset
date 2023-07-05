@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 24
-  productGUID: eca41886b7880a342bea2abec920fd49
+  productGUID: 2db1fc8ffb4c8a046a67c843968acc90
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: LOW
+  productName: Mage01
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -154,7 +154,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.DefaultCompany.Mage01
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -269,7 +270,99 @@ PlayerSettings:
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
   m_BuildTargetIcons: []
-  m_BuildTargetPlatformIcons: []
+  m_BuildTargetPlatformIcons:
+  - m_BuildTarget: Android
+    m_Icons:
+    - m_Textures: []
+      m_Width: 432
+      m_Height: 432
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 324
+      m_Height: 324
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 216
+      m_Height: 216
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 162
+      m_Height: 162
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 108
+      m_Height: 108
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 81
+      m_Height: 81
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 144
+      m_Height: 144
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 96
+      m_Height: 96
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 72
+      m_Height: 72
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 48
+      m_Height: 48
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 36
+      m_Height: 36
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 144
+      m_Height: 144
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 96
+      m_Height: 96
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 72
+      m_Height: 72
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 48
+      m_Height: 48
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 36
+      m_Height: 36
+      m_Kind: 0
+      m_SubKind: 
   m_BuildTargetBatching:
   - m_BuildTarget: Standalone
     m_StaticBatching: 1
@@ -615,7 +708,23 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    EmbeddedLinux: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    GameCoreScarlett: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    GameCoreXboxOne: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    LinuxHeadlessSimulation: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    Lumin: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    Nintendo Switch: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    PS4: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    PS5: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    Stadia: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    Standalone: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    WebGL: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    Windows Store Apps: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    XboxOne: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    iPhone: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
+    tvOS: ULTIMATEXR_USE_WINDOWSMIXEDREALITY_SDK
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -717,7 +826,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0

@@ -12,6 +12,7 @@ public class Teleportation : MonoBehaviour
     [SerializeField] private TeleportationProvider provider;
     private InputAction _thumbstick;
     private bool _isActive;
+  
 
     void Start()
     {
@@ -29,36 +30,39 @@ public class Teleportation : MonoBehaviour
         _thumbstick.Enable();
     }
 
-    // Update is called once per frame
+    
     void Update()
-    {
-        if (!_isActive)
-            return;
-        if (_thumbstick.triggered)
-            return;
-        
-        if (!interactor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
-        {
-            interactor.enabled = false;
-            _isActive = false;
-            return;
-        }
-        TeleportRequest request = new TeleportRequest()
-        {
-            destinationPosition = hit.point,
-            //destinationRotation ?,
-        };
+     {
+         if (!_isActive)
+             return;
+         if (_thumbstick.triggered)
+             return;
 
-        provider.QueueTeleportRequest(request);
-    }
-    private void OnTeleportActivate(InputAction.CallbackContext context)
-    {
-        interactor.enabled = true;
-        _isActive = true;
-    }
-    private void OnTeleportCancel(InputAction.CallbackContext context)
-    {
-        interactor.enabled = false;
-        _isActive = false;
-    }
+         if (!interactor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
+         {
+             interactor.enabled = false;
+             _isActive = false;
+             return;
+         }
+         TeleportRequest request = new TeleportRequest()
+         {
+             destinationPosition = hit.point,
+             //destinationRotation ?,
+
+         };
+
+         provider.QueueTeleportRequest(request);
+
+     }
+     private void OnTeleportActivate(InputAction.CallbackContext context)
+     {
+         interactor.enabled = true;
+         _isActive = true;
+     }
+     private void OnTeleportCancel(InputAction.CallbackContext context)
+     {
+         interactor.enabled = false;
+         _isActive = false;
+     }
+ 
 }

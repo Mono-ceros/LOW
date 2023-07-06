@@ -50,6 +50,7 @@ public class Teleportation : MonoBehaviour
         };
 
         provider.QueueTeleportRequest(request);
+        TeleportOff();
     }
     private void OnTeleportActivate(InputAction.CallbackContext context)
     {
@@ -57,6 +58,10 @@ public class Teleportation : MonoBehaviour
         _isActive = true;
     }
     private void OnTeleportCancel(InputAction.CallbackContext context)
+    {
+        TeleportOff();
+    }
+    void TeleportOff()
     {
         interactor.enabled = false;
         _isActive = false;

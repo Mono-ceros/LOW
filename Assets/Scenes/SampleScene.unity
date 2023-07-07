@@ -2106,9 +2106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f2797d494652c45b8d52d72afa70cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellBook: {fileID: 0}
+  spellBook: {fileID: 4896847252313516750}
   openBook:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Open Book
       m_Type: 0
@@ -2118,9 +2118,9 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   castMagic:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Cast Magic
       m_Type: 0
@@ -2130,7 +2130,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   spherePrefab: {fileID: 6809349286494061655, guid: 9e64fb08d6f52334c893abebd7d9edc6, type: 3}
   cameraTr: {fileID: 465122523}
   rightControllerTr: {fileID: 1081472063}

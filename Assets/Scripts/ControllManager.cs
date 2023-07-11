@@ -8,16 +8,25 @@ public class ControllManager : MonoBehaviour
     public GameObject spellBook;
     public InputActionProperty openBook;
     public InputActionProperty castMagic;
+    public InputActionProperty indexChange;
     float leftGripValue;
     float rightGripValue;
     bool isFire;
-    public GameObject spherePrefab;
+    
     public Transform cameraTr;
     public Transform rightControllerTr;
-    public ParticleSystem magicEffects;
+    public ParticleSystem[] magicEffects;
+    public GameObject[] magicPrefabs;
+    int index;
+   
+    private void Awake()
+    {
+        
+     
+    }
     void Start()
     {
-       
+        index = 0;
         spellBook.SetActive(false);
         isFire = false; 
 
@@ -29,8 +38,7 @@ public class ControllManager : MonoBehaviour
     {
         OpenBook();
         CastMagic();
-
-
+        IndexChange();
 
     }
     void OpenBook()
@@ -46,32 +54,38 @@ public class ControllManager : MonoBehaviour
         rightGripValue = castMagic.action.ReadValue<float>();
         if (rightGripValue > 0.9f)
         {
-            magicEffects.Play();
+            magicEffects[index].Play();
             isFire = true;
         }
         else if (rightGripValue <= 0.9f && rightGripValue > 0)
         {
-            magicEffects.Stop();
-            StartCoroutine(GenerateSphere());
+            magicEffects[index].Stop();
+            StartCoroutine(FireMagic());
             isFire = false;
         }
         else
-            magicEffects.Stop();
-
-
+            magicEffects[index].Stop();
     }
    
-    IEnumerator GenerateSphere()
+    IEnumerator FireMagic()
     {
         while (isFire)
         {
             Vector3 newPosition = rightControllerTr.position + cameraTr.forward * 0.2f;
             // 마법 생성 (날아가게 할 것임)
-            GameObject cube = Instantiate(spherePrefab, newPosition, Quaternion.identity);
-            //  Right Controller의 자식으로 설정
-            cube.transform.SetParent(rightControllerTr);
+            GameObject magic = Instantiate(magicPrefabs[index], newPosition, Camera.main.transform.rotation);
+            
             yield return new WaitForSeconds(0.5f);
         }
     }
-   
+   void IndexChange()
+    {
+        float xbutton = indexChange.action.ReadValue<float>();
+        if (xbutton>0.9f)
+        {
+            index++;
+            if(index == 2)
+                index = 0;
+        }
+    }
 }

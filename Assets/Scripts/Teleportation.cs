@@ -10,6 +10,7 @@ public class Teleportation : MonoBehaviour
     [SerializeField] private InputActionAsset actionAsset;
     [SerializeField] private XRRayInteractor interactor;
     [SerializeField] private TeleportationProvider provider;
+    [SerializeField] private XRInteractorLineVisual lineVisual;
     private InputAction _thumbstick;
     private bool _isActive;
 
@@ -65,5 +66,6 @@ public class Teleportation : MonoBehaviour
     {
         interactor.enabled = false;
         _isActive = false;
+        lineVisual.reticle.SetActive(false);
     }
 }

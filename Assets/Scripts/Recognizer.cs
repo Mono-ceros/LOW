@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using PDollarGestureRecognizer;
 using System.IO;
 using UnityEngine.Events;
+using System.Xml;
 
 public class Recognizer : MonoBehaviour
 {
@@ -33,10 +34,19 @@ public class Recognizer : MonoBehaviour
 
     void Start()
     {
-        string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
+        /*string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
         foreach(var item in gestureFiles)
         {
             trainingSet.Add(GestureIO.ReadGestureFromFile(item));   
+        }*/
+        TextAsset[] xmlFiles = Resources.LoadAll<TextAsset>("");
+        if (xmlFiles.Length > 0)
+        {
+            foreach (TextAsset xmlFile in xmlFiles)
+            {              
+                string gesture = xmlFile.ToString();
+                trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));              
+            }
         }
     }
 

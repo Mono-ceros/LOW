@@ -12,23 +12,24 @@ public class ControllManager : MonoBehaviour
     float leftGripValue;
     float rightGripValue;
     bool isFire;
-    
+
     public Transform cameraTr;
     public Transform rightControllerTr;
+    public GameObject sheild;
     public ParticleSystem[] magicEffects;
     public GameObject[] magicPrefabs;
     int index;
-   
+
     private void Awake()
     {
-        
-     
+
+
     }
     void Start()
     {
         index = 0;
         spellBook.SetActive(false);
-        isFire = false; 
+        isFire = false;
 
 
     }
@@ -60,13 +61,13 @@ public class ControllManager : MonoBehaviour
         else if (rightGripValue <= 0.9f && rightGripValue > 0)
         {
             magicEffects[index].Stop();
-            StartCoroutine(FireMagic());
+            //StartCoroutine(FireMagic());
             isFire = false;
         }
         else
             magicEffects[index].Stop();
     }
-   
+
     IEnumerator FireMagic()
     {
         while (isFire)
@@ -74,18 +75,35 @@ public class ControllManager : MonoBehaviour
             Vector3 newPosition = rightControllerTr.position + cameraTr.forward * 0.2f;
             // 마법 생성 (날아가게 할 것임)
             GameObject magic = Instantiate(magicPrefabs[index], newPosition, Camera.main.transform.rotation);
-            
+
             yield return new WaitForSeconds(0.5f);
         }
     }
-   void IndexChange()
+    void IndexChange()
     {
         float xbutton = indexChange.action.ReadValue<float>();
-        if (xbutton>0.9f)
+        if (xbutton > 0.9f)
         {
             index++;
-            if(index == 2)
+            if (index == 2)
                 index = 0;
         }
+    }
+    public void MotionMagic(string rec)
+    {
+        if (rec == "O")
+        {
+            Vector3 shieldTransform = Camera.main.transform.position + Camera.main.transform.forward * 0.4f;
+            GameObject shelid = Instantiate(sheild, shieldTransform, Camera.main.transform.rotation);
+            Destroy(shelid, 3f);
+        }
+        else if (rec == "Slash")
+        {
+            Vector3 newPosition = rightControllerTr.position + cameraTr.forward * 0.2f;
+            // 마법 생성 (날아가게 할 것임)
+            GameObject magic = Instantiate(magicPrefabs[index], newPosition, Camera.main.transform.rotation);
+        }
+        else
+            Debug.Log("안맞음");
     }
 }

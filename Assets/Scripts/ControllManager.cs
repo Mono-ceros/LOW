@@ -12,11 +12,12 @@ public class ControllManager : MonoBehaviour
     float leftGripValue;
     float rightGripValue;
     bool isFire;
+    bool isButton;
 
     public Transform cameraTr;
     public Transform rightControllerTr;
     public GameObject sheild;
-    public ParticleSystem[] magicEffects;
+    //public ParticleSystem[] magicEffects;
     public GameObject[] magicPrefabs;
     int index;
 
@@ -30,6 +31,7 @@ public class ControllManager : MonoBehaviour
         index = 0;
         spellBook.SetActive(false);
         isFire = false;
+        isButton = false;
 
 
     }
@@ -38,7 +40,7 @@ public class ControllManager : MonoBehaviour
     void Update()
     {
         OpenBook();
-        CastMagic();
+        //CastMagic();
         IndexChange();
 
     }
@@ -50,7 +52,7 @@ public class ControllManager : MonoBehaviour
         else
             spellBook.SetActive(false);
     }
-    void CastMagic()
+    /*void CastMagic()
     {
         rightGripValue = castMagic.action.ReadValue<float>();
         if (rightGripValue > 0.9f)
@@ -78,16 +80,27 @@ public class ControllManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
         }
-    }
+    }*/
     void IndexChange()
     {
+
         float xbutton = indexChange.action.ReadValue<float>();
-        if (xbutton > 0.9f)
+        if (xbutton > 0.9f && !isButton)
         {
+            StartCoroutine(XButton());
             index++;
             if (index == 2)
                 index = 0;
+            Debug.Log("버튼X");
         }
+        
+    }
+  IEnumerator XButton()
+    {
+        isButton = true;
+        yield return new WaitForSeconds(0.5f);
+        isButton = false;
+
     }
     public void MotionMagic(string rec)
     {
@@ -99,8 +112,8 @@ public class ControllManager : MonoBehaviour
         }
         else if (rec == "Slash")
         {
-            Vector3 newPosition = rightControllerTr.position + cameraTr.forward * 0.2f;
-            // 마법 생성 (날아가게 할 것임)
+            Vector3 newPosition = rightControllerTr.position + cameraTr.forward * 0.1f;
+            // 마법 생성 
             GameObject magic = Instantiate(magicPrefabs[index], newPosition, Camera.main.transform.rotation);
         }
         else

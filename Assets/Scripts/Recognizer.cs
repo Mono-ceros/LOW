@@ -85,6 +85,8 @@ public class Recognizer : MonoBehaviour
         //Debug.Log("Á¾·á");
         isMoving = false;
         Point[] pointArray = new Point[positionsList.Count];
+        if (pointArray.Length < 2)
+            return;
         for(int i = 0; i < positionsList.Count; i++)
         {
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(positionsList[i]);

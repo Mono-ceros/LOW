@@ -1309,7 +1309,7 @@ MonoBehaviour:
   inputSource: 5
   inputButton: 2
   movementSource: {fileID: 1081472063}
-  debugCubePrefab: {fileID: 0}
+  debugCubePrefab: {fileID: 1459862227383078, guid: cc461484bcafc664fb68be84c1fc6860, type: 3}
   creationMode: 0
   newGestureName: O
   OnRecognized:

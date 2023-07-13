@@ -78,7 +78,7 @@ public class Recognizer : MonoBehaviour
         positionsList.Clear();
         positionsList.Add(movementSource.position);
         if (debugCubePrefab)
-            Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity),2f);
+            Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity),0.6f);
     }
     void EndMovement()
     {

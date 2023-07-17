@@ -1,5 +1,7 @@
+using DigitalRuby.ThunderAndLightning;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +11,7 @@ public class ControllManager : MonoBehaviour
     public InputActionProperty openBook;
     public InputActionProperty castMagic;
     public InputActionProperty indexChange;
+    public LightningSpellScript spell;
     float leftGripValue;
     float rightGripValue;
     bool isFire;
@@ -32,7 +35,11 @@ public class ControllManager : MonoBehaviour
         spellBook.SetActive(false);
         isFire = false;
         isButton = false;
+        Vector3 playerDirection = Camera.main.transform.forward;
 
+        playerDirection.y = 0f;
+        spell.Direction = playerDirection;
+        spell.SpellStart.transform.position = rightControllerTr.position + cameraTr.forward * 0.1f;
 
     }
 
@@ -112,9 +119,17 @@ public class ControllManager : MonoBehaviour
         }
         else if (rec == "Slash")
         {
-            Vector3 newPosition = rightControllerTr.position + cameraTr.forward * 0.1f;
-            // 付过 积己 
-            GameObject magic = Instantiate(magicPrefabs[index], newPosition, Camera.main.transform.rotation);
+            if (index == 0)
+            {
+                Vector3 newPosition = rightControllerTr.position + cameraTr.forward * 0.1f;
+                // 付过 积己 
+                GameObject magic = Instantiate(magicPrefabs[index], newPosition, Camera.main.transform.rotation);
+            }
+            else if (index == 1)
+            {
+                
+                spell.CastSpell();
+            }
         }
         else
             Debug.Log("救嘎澜");

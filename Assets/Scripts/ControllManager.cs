@@ -119,6 +119,7 @@ public class ControllManager : MonoBehaviour
                 Vector3 newPosition = rightControllerTr.position + cameraTr.forward * 0.1f;
                 // 마법 생성 
                 GameObject magic = Instantiate(magicPrefabs[index], newPosition, Camera.main.transform.rotation);
+                Destroy(magic, 1.5f);
             }
             else if (index == 1)
             {

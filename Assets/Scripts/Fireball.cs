@@ -11,7 +11,9 @@ public class Fireball : MonoBehaviour
     Rigidbody rb;
     Transform tr;
     ParticleSystem fireEffect;
-    Vector3 startPosition;
+    public ParticleSystem collisonEffect;
+  
+    
 
 
     // Start is called before the first frame update
@@ -20,7 +22,7 @@ public class Fireball : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         tr = GetComponent<Transform>();
         fireEffect = GetComponentInChildren<ParticleSystem>();
-        startPosition = transform.position;
+        
     }
 
     private void OnEnable()
@@ -37,22 +39,26 @@ public class Fireball : MonoBehaviour
         rb.AddForce(playerDirection * speed);
 
         fireEffect.Play();
+      
 
     }
     private void OnDisable()
     {
-
-        tr.position = Vector3.zero;
-        tr.rotation = Quaternion.identity;
-        rb.Sleep();
-        fireEffect.Stop();
+        rb.Sleep();      
     }
     void Update()
     {
-        float distance = Vector3.Distance(startPosition, transform.position);
+        /*float distance = Vector3.Distance(startPosition, transform.position);
         if (distance >= destroyDistance)
         {
             Destroy(gameObject);
-        }
+        }*/
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        fireEffect.Stop();
+        collisonEffect.Play();
     }
 }

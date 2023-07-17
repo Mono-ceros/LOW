@@ -2197,6 +2197,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8240730, guid: 1e2637589ee43bc4db3fa44803d34dc8, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240730, guid: 1e2637589ee43bc4db3fa44803d34dc8, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8179007e61ea5d74bb6ad65899e2d75b, type: 3}
     - target: {fileID: 11401196, guid: 1e2637589ee43bc4db3fa44803d34dc8, type: 3}
       propertyPath: Camera
       value: 
@@ -2233,7 +2241,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 175568, guid: 1e2637589ee43bc4db3fa44803d34dc8, type: 3}
   m_PrefabInstance: {fileID: 1892397514}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1892397519
+--- !u!114 &1892397522
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2245,7 +2253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0da1ce395d39840a307f76887f32ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1892397520
+--- !u!114 &1892397523
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}

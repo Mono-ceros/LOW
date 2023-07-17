@@ -496,7 +496,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2201,6 +2201,10 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 465122526}
+    - target: {fileID: 11460116, guid: 1e2637589ee43bc4db3fa44803d34dc8, type: 3}
+      propertyPath: MaxDistance
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e2637589ee43bc4db3fa44803d34dc8, type: 3}
 --- !u!114 &1892397515 stripped
@@ -2229,7 +2233,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 175568, guid: 1e2637589ee43bc4db3fa44803d34dc8, type: 3}
   m_PrefabInstance: {fileID: 1892397514}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1892397522
+--- !u!114 &1892397519
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2241,7 +2245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0da1ce395d39840a307f76887f32ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1892397523
+--- !u!114 &1892397520
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}

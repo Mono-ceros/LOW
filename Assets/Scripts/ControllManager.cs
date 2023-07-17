@@ -35,11 +35,6 @@ public class ControllManager : MonoBehaviour
         spellBook.SetActive(false);
         isFire = false;
         isButton = false;
-        Vector3 playerDirection = Camera.main.transform.forward;
-
-        playerDirection.y = 0f;
-        spell.Direction = playerDirection;
-        spell.SpellStart.transform.position = rightControllerTr.position + cameraTr.forward * 0.1f;
 
     }
 
@@ -127,11 +122,20 @@ public class ControllManager : MonoBehaviour
             }
             else if (index == 1)
             {
-                
-                spell.CastSpell();
+                Vector3 playerDirection = Camera.main.transform.forward;
+                playerDirection.y = 0f;
+                spell.Direction = playerDirection;
+                spell.SpellStart.transform.position = rightControllerTr.position + cameraTr.forward * 0.1f;
+                StartCoroutine(LightningSpell());
             }
         }
         else
             Debug.Log("¾È¸ÂÀ½");
+    }
+    IEnumerator LightningSpell()
+    {
+        spell.CastSpell();
+        yield return new WaitForSeconds(0.6f);
+        spell.StopSpell();
     }
 }

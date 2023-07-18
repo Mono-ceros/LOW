@@ -29,24 +29,40 @@ public class Recognizer : MonoBehaviour
 
     private List<Gesture> trainingSet = new List<Gesture>();
     private List<Vector3> positionsList = new List<Vector3>();
-    
 
+    private void Awake()
+    {
+        BetterStreamingAssets.Initialize();
+    }
 
     void Start()
     {
-        /*string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
+       /*string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
         foreach(var item in gestureFiles)
         {
-            trainingSet.Add(GestureIO.ReadGestureFromFile(item));   
+            trainingSet.Add(GestureIO.ReadGestureFromFile(item));
+            Debug.Log(item.ToString());
         }*/
-        TextAsset[] xmlFiles = Resources.LoadAll<TextAsset>("");
+
+        /*TextAsset[] xmlFiles = Resources.LoadAll<TextAsset>("");
         if (xmlFiles.Length > 0)
         {
-            foreach (TextAsset xmlFile in xmlFiles)
-            {              
-                string gesture = xmlFile.ToString();
-                trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));              
+            foreach (TextAsset item in xmlFiles)
+            {
+                string gesture = item.ToString();             
+                trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));
+                Debug.Log(gesture);
+               
             }
+        }*/
+        
+        string[] gestureFiles = BetterStreamingAssets.GetFiles("\\", "*.xml", SearchOption.AllDirectories);
+        foreach (var item in gestureFiles)
+        {
+
+            string gesture = item.ToString();
+            trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));
+            Debug.Log(gesture);
         }
     }
 
@@ -78,7 +94,7 @@ public class Recognizer : MonoBehaviour
         positionsList.Clear();
         positionsList.Add(movementSource.position);
         if (debugCubePrefab)
-            Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity),0.6f);
+            Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity), 0.6f);
     }
     void EndMovement()
     {
@@ -87,24 +103,24 @@ public class Recognizer : MonoBehaviour
         Point[] pointArray = new Point[positionsList.Count];
         if (pointArray.Length < 2)
             return;
-        for(int i = 0; i < positionsList.Count; i++)
+        for (int i = 0; i < positionsList.Count; i++)
         {
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(positionsList[i]);
             pointArray[i] = new Point(screenPoint.x, screenPoint.y, 0);
         }
         Gesture newGesture = new Gesture(pointArray);
-        if(creationMode)
+        if (creationMode)
         {
-            newGesture.Name = newGestureName; 
+            newGesture.Name = newGestureName;
             trainingSet.Add(newGesture);
             string fileName = Application.persistentDataPath + "/" + newGestureName + ".xml";
-            GestureIO.WriteGesture(pointArray,newGestureName,fileName);
+            GestureIO.WriteGesture(pointArray, newGestureName, fileName);
         }
         else
         {
-            Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());    
+            Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
             //Debug.Log(result.GestureClass +  result.Score);
-            if(result.Score > recognitionThreshold)
+            if (result.Score > recognitionThreshold)
             {
                 OnRecognized.Invoke(result.GestureClass);
             }
@@ -121,5 +137,5 @@ public class Recognizer : MonoBehaviour
                 Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity), 2f);
         }
     }
-       
+
 }

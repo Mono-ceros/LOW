@@ -91,7 +91,7 @@ public class ControllManager : MonoBehaviour
         {
             StartCoroutine(XButton());
             index++;
-            if (index == 3)
+            if (index >= 3)
                 index = 0;
             Debug.Log("¹öÆ°X");
         }
@@ -131,7 +131,7 @@ public class ControllManager : MonoBehaviour
             }
             else if (index == 2) 
             {
-                GameObject magic = Instantiate(magicPrefabs[index-1], Camera.main.transform.position, Camera.main.transform.rotation);
+                GameObject magic = Instantiate(magicPrefabs[index-1],Camera.main.transform.forward * 3f, Quaternion.identity);
             }
         }
         else

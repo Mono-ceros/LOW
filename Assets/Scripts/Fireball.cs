@@ -6,7 +6,7 @@ public class Fireball : MonoBehaviour
 {
     float damage = 20f;
     float speed = 1000f;
-    float destroyDistance = 20f;
+    //float destroyDistance = 20f;
 
     Rigidbody rb;
     Transform tr;

@@ -91,7 +91,7 @@ public class ControllManager : MonoBehaviour
         {
             StartCoroutine(XButton());
             index++;
-            if (index == 2)
+            if (index == 3)
                 index = 0;
             Debug.Log("¹öÆ°X");
         }
@@ -128,6 +128,10 @@ public class ControllManager : MonoBehaviour
                 spell.Direction = playerDirection;
                 spell.SpellStart.transform.position = rightControllerTr.position + cameraTr.forward * 0.1f;
                 StartCoroutine(LightningSpell());
+            }
+            else if (index == 2) 
+            {
+                GameObject magic = Instantiate(magicPrefabs[index-1], Camera.main.transform.position, Camera.main.transform.rotation);
             }
         }
         else

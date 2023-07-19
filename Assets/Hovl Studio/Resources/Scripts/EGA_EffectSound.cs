@@ -25,7 +25,8 @@ public class EGA_EffectSound : MonoBehaviour
         }
         if (Repeating == true)
         {
-            InvokeRepeating("RepeatSound", StartTime, RepeatTime);
+            //InvokeRepeating("RepeatSound", StartTime, RepeatTime);
+            RepeatSound();
         }
     }
 

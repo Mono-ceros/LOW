@@ -14,7 +14,7 @@ public class ControllManager : MonoBehaviour
     public LightningSpellScript spell;
     float leftGripValue;
     float rightGripValue;
-    bool isFire;
+    bool isOpen;
     bool isButton;
 
     public Transform cameraTr;
@@ -22,6 +22,7 @@ public class ControllManager : MonoBehaviour
     public GameObject sheild;
     //public ParticleSystem[] magicEffects;
     public GameObject[] magicPrefabs;
+    public GameObject[] magicSpell;
     int index;
 
     private void Awake()
@@ -33,9 +34,9 @@ public class ControllManager : MonoBehaviour
     {
         index = 0;
         spellBook.SetActive(false);
-        isFire = false;
+        isOpen = false;
         isButton = false;
-
+        SelectSpell(0);
     }
 
     // Update is called once per frame
@@ -50,9 +51,15 @@ public class ControllManager : MonoBehaviour
     {
         leftGripValue = openBook.action.ReadValue<float>();
         if (leftGripValue > 0.9f)
+        {
             spellBook.SetActive(true);
+            isOpen = true;
+        }
         else
+        {
             spellBook.SetActive(false);
+            isOpen = false;
+        }
     }
     /*void CastMagic()
     {
@@ -85,19 +92,23 @@ public class ControllManager : MonoBehaviour
     }*/
     void IndexChange()
     {
-
-        float xbutton = indexChange.action.ReadValue<float>();
-        if (xbutton > 0.9f && !isButton)
+        if (isOpen)
         {
-            StartCoroutine(XButton());
-            index++;
-            if (index >= 3)
-                index = 0;
-            Debug.Log("버튼X");
+            float xbutton = indexChange.action.ReadValue<float>();
+            if (xbutton > 0.9f && !isButton)
+            {
+                StartCoroutine(XButton());
+                index++;
+                if (index >= 3)
+                    index = 0;
+
+                SelectSpell(index);
+                Debug.Log("버튼X");
+            }
         }
-        
+
     }
-  IEnumerator XButton()
+    IEnumerator XButton()
     {
         isButton = true;
         yield return new WaitForSeconds(0.5f);
@@ -129,9 +140,14 @@ public class ControllManager : MonoBehaviour
                 spell.SpellStart.transform.position = rightControllerTr.position + cameraTr.forward * 0.1f;
                 StartCoroutine(LightningSpell());
             }
-            else if (index == 2) 
+            else if (index == 2)
             {
-                GameObject magic = Instantiate(magicPrefabs[index-1],Camera.main.transform.up* 3f, Quaternion.identity);
+                //Vector3 spawnPosition = Camera.main.transform.position + Camera.main.transform.forward * 5f + Vector3.up * 10f;
+                //GameObject magic = Instantiate(magicPrefabs[index - 1], spawnPosition, Quaternion.Euler(90f, 0, 0));
+                // Destroy(magic, 4f);
+                Vector3 spawnPosition = Camera.main.transform.position + Camera.main.transform.forward * 5f;
+                GameObject magic = Instantiate(magicPrefabs[index - 1], spawnPosition, Quaternion.identity);
+                Destroy(magic, 4f);
             }
         }
         else
@@ -142,5 +158,12 @@ public class ControllManager : MonoBehaviour
         spell.CastSpell();
         yield return new WaitForSeconds(0.6f);
         spell.StopSpell();
+    }
+    void SelectSpell(int index)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            magicSpell[i].SetActive(i == index);
+        }
     }
 }

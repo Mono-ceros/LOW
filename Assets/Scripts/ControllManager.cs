@@ -131,7 +131,7 @@ public class ControllManager : MonoBehaviour
             }
             else if (index == 2) 
             {
-                GameObject magic = Instantiate(magicPrefabs[index-1],Camera.main.transform.forward * 3f, Quaternion.identity);
+                GameObject magic = Instantiate(magicPrefabs[index-1],Camera.main.transform.up* 3f, Quaternion.identity);
             }
         }
         else

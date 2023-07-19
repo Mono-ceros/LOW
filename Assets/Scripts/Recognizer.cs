@@ -6,7 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 using PDollarGestureRecognizer;
 using System.IO;
 using UnityEngine.Events;
-using System.Xml;
 
 public class Recognizer : MonoBehaviour
 {
@@ -30,39 +29,42 @@ public class Recognizer : MonoBehaviour
     private List<Gesture> trainingSet = new List<Gesture>();
     private List<Vector3> positionsList = new List<Vector3>();
 
-    private void Awake()
+    private string streamingAssetsPath = Application.streamingAssetsPath;
+
+    void Awake()
     {
         BetterStreamingAssets.Initialize();
     }
 
     void Start()
     {
-       /*string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
-        foreach(var item in gestureFiles)
-        {
-            trainingSet.Add(GestureIO.ReadGestureFromFile(item));
-            Debug.Log(item.ToString());
-        }*/
+        /*string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
+         foreach(var item in gestureFiles)
+         {
+             trainingSet.Add(GestureIO.ReadGestureFromFile(item));           
+         }*/
 
-        /*TextAsset[] xmlFiles = Resources.LoadAll<TextAsset>("");
-        if (xmlFiles.Length > 0)
-        {
-            foreach (TextAsset item in xmlFiles)
-            {
-                string gesture = item.ToString();             
-                trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));
-                Debug.Log(gesture);
-               
-            }
-        }*/
-        
-        string[] gestureFiles = BetterStreamingAssets.GetFiles("\\", "*.xml", SearchOption.AllDirectories);
+        /* TextAsset[] xmlFiles = Resources.LoadAll<TextAsset>("");
+         if (xmlFiles.Length > 0)
+         {
+             foreach (TextAsset item in xmlFiles)
+             {
+                 string gesture = item.ToString();
+                 Debug.Log(gesture);
+                 trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));
+             }
+         }*/
+
+       
+
+        if (Application.platform == RuntimePlatform.Android)
+            streamingAssetsPath = "jar:file://" + Application.dataPath + "!/assets";
+
+        string[] gestureFiles = BetterStreamingAssets.GetFiles("/", "*.xml", SearchOption.AllDirectories);
         foreach (var item in gestureFiles)
         {
-
-            string gesture = item.ToString();
-            trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));
-            Debug.Log(gesture);
+            //Debug.Log(item);
+            trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));          
         }
     }
 

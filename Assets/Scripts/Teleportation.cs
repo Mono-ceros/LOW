@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -13,6 +16,7 @@ public class Teleportation : MonoBehaviour
     [SerializeField] private XRInteractorLineVisual lineVisual;
     private InputAction _thumbstick;
     private bool _isActive;
+    private List<IXRInteractable> interactables = new List<IXRInteractable>();  
 
     void Start()
     {
@@ -37,20 +41,33 @@ public class Teleportation : MonoBehaviour
             return;
         if (_thumbstick.triggered)
             return;
-        
+
         if (!interactor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
         {
             interactor.enabled = false;
             _isActive = false;
             return;
         }
-        TeleportRequest request = new TeleportRequest()
+        interactor.GetValidTargets(interactables);
+        if(interactables.Count == 0)
         {
-            destinationPosition = hit.point,
-            //destinationRotation ?,
-        };
+            TeleportOff();
+            return;
+        }
+        //UnityEngine.Debug.Log(interactables[0].interactionLayers.value);      
+        TeleportRequest request = new TeleportRequest();
+        if (interactables[0].interactionLayers == 2)
+        {
+            request.destinationPosition = hit.point;
+        }
+                 
+           /* TeleportRequest request = new TeleportRequest()
+            {
+                destinationPosition = hit.point,
+                //destinationRotation ?,
+            }; */
 
-        provider.QueueTeleportRequest(request);
+        provider.QueueTeleportRequest(request);      
         TeleportOff();
     }
     private void OnTeleportActivate(InputAction.CallbackContext context)

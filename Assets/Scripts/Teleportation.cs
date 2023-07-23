@@ -39,7 +39,7 @@ public class Teleportation : MonoBehaviour
     {
         if (!_isActive)
             return;
-        if (_thumbstick.triggered)
+        if (_thumbstick.ReadValue<Vector2>() != Vector2.zero)
             return;
 
         if (!interactor.TryGetCurrent3DRaycastHit(out RaycastHit hit))

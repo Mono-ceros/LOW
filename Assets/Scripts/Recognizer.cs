@@ -157,7 +157,6 @@ public class Recognizer : MonoBehaviour
         {
             yield return request.SendWebRequest();
             string text = request.downloadHandler.text;
-            Debug.Log(text);
             string gesture = text.ToString();
             trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));
         }

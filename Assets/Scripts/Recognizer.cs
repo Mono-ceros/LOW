@@ -63,7 +63,7 @@ public class Recognizer : MonoBehaviour
         string[] gestureFiles = BetterStreamingAssets.GetFiles("/", "*.xml", SearchOption.AllDirectories);
         foreach (var item in gestureFiles)
         {
-            //Debug.Log(item);
+            Debug.Log(item);
             trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));          
         }
     }

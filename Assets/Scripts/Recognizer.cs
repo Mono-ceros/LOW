@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using PDollarGestureRecognizer;
 using System.IO;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 public class Recognizer : MonoBehaviour
 {
@@ -55,16 +56,25 @@ public class Recognizer : MonoBehaviour
              }
          }*/
 
-       
+
 
         if (Application.platform == RuntimePlatform.Android)
             streamingAssetsPath = "jar:file://" + Application.dataPath + "!/assets";
 
         string[] gestureFiles = BetterStreamingAssets.GetFiles("/", "*.xml", SearchOption.AllDirectories);
-        foreach (var item in gestureFiles)
+        if (Application.platform == RuntimePlatform.Android)
         {
-            Debug.Log(item);
-            trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));          
+            foreach (var item in gestureFiles)
+            {
+                StartCoroutine(GetXml(item));
+            }
+        }
+        else
+        {
+            foreach (var item in gestureFiles)
+            {
+                trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));
+            }
         }
     }
 
@@ -140,4 +150,16 @@ public class Recognizer : MonoBehaviour
         }
     }
 
+    IEnumerator GetXml(string item)
+    {
+
+        using (UnityWebRequest request = UnityWebRequest.Get($"{streamingAssetsPath}/{item}"))
+        {
+            yield return request.SendWebRequest();
+            string text = request.downloadHandler.text;
+            Debug.Log(text);
+            string gesture = text.ToString();
+            trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));
+        }
+    }
 }

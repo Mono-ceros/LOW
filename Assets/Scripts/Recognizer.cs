@@ -56,14 +56,12 @@ public class Recognizer : MonoBehaviour
              }
          }*/
 
-        if (Application.platform == RuntimePlatform.Android)
-            streamingAssetsPath = "jar:file://" + Application.dataPath + "!/assets";
 
         string[] gestureFiles = BetterStreamingAssets.GetFiles("/", "*.xml", SearchOption.TopDirectoryOnly);
         foreach (var item in gestureFiles)
         {
-            StartCoroutine(GetXml(item));
-            //trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));
+           
+            trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));
         }
     }
 
@@ -139,15 +137,4 @@ public class Recognizer : MonoBehaviour
         }
     }
 
-    IEnumerator GetXml(string item)
-    {
-        //모바일에서는 xml파일 로드가 되지 않아 UnityWebRequest를 사용
-        using (UnityWebRequest request = UnityWebRequest.Get($"{streamingAssetsPath}/{item}"))
-        {
-            yield return request.SendWebRequest();
-            string text = request.downloadHandler.text;
-            //string gesture = text.ToString();
-            trainingSet.Add(GestureIO.ReadGestureFromXML(text));
-        }
-    }
 }

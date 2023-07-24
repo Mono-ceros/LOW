@@ -39,7 +39,7 @@ public class Teleportation : MonoBehaviour
     {
         if (!_isActive)
             return;
-        if (_thumbstick.ReadValue<Vector2>() != Vector2.zero)
+        if (_thumbstick.triggered)
             return;
 
         if (!interactor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
@@ -54,7 +54,7 @@ public class Teleportation : MonoBehaviour
             TeleportOff();
             return;
         }
-        //UnityEngine.Debug.Log(interactables[0].interactionLayers.value);      
+  
         TeleportRequest request = new TeleportRequest();
         if (interactables[0].interactionLayers == 2)
         {

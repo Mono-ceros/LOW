@@ -56,8 +56,6 @@ public class Recognizer : MonoBehaviour
              }
          }*/
 
-
-
         if (Application.platform == RuntimePlatform.Android)
             streamingAssetsPath = "jar:file://" + Application.dataPath + "!/assets";
 
@@ -65,18 +63,11 @@ public class Recognizer : MonoBehaviour
         foreach (var item in gestureFiles)
         {
             StartCoroutine(GetXml(item));
+            //trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));
         }
-
-        /* else
-         {
-             foreach (var item in gestureFiles)
-             {
-                 trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));
-             }
-         }*/
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         InputHelpers.IsPressed(InputDevices.GetDeviceAtXRNode(inputSource), inputButton, out bool isPressed, inputThreshold);
@@ -150,7 +141,7 @@ public class Recognizer : MonoBehaviour
 
     IEnumerator GetXml(string item)
     {
-
+        //모바일에서는 xml파일 로드가 되지 않아 UnityWebRequest를 사용
         using (UnityWebRequest request = UnityWebRequest.Get($"{streamingAssetsPath}/{item}"))
         {
             yield return request.SendWebRequest();

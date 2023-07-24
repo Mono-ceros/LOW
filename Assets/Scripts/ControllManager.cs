@@ -15,6 +15,7 @@ public class ControllManager : MonoBehaviour
     float rightGripValue;
     bool isOpen;
     bool isButton;
+    private WaitForSeconds buttonWait = new WaitForSeconds(0.5f);
 
     public Transform cameraTr;
     public Transform rightControllerTr;
@@ -110,7 +111,7 @@ public class ControllManager : MonoBehaviour
     IEnumerator XButton()
     {
         isButton = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return buttonWait;
         isButton = false;
 
     }

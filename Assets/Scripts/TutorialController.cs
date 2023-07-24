@@ -37,7 +37,7 @@ public class TutorialController : MonoBehaviour
 
         if (currentIndex >= tutorials.Count - 1) 
         {
-            CompleteTutorials();
+           // CompleteTutorials();
             return;
         }
 

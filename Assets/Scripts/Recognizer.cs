@@ -61,21 +61,19 @@ public class Recognizer : MonoBehaviour
         if (Application.platform == RuntimePlatform.Android)
             streamingAssetsPath = "jar:file://" + Application.dataPath + "!/assets";
 
-        string[] gestureFiles = BetterStreamingAssets.GetFiles("/", "*.xml", SearchOption.AllDirectories);
-        if (Application.platform == RuntimePlatform.Android)
+        string[] gestureFiles = BetterStreamingAssets.GetFiles("/", "*.xml", SearchOption.TopDirectoryOnly);
+        foreach (var item in gestureFiles)
         {
-            foreach (var item in gestureFiles)
-            {
-                StartCoroutine(GetXml(item));
-            }
+            StartCoroutine(GetXml(item));
         }
-        else
-        {
-            foreach (var item in gestureFiles)
-            {
-                trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));
-            }
-        }
+
+        /* else
+         {
+             foreach (var item in gestureFiles)
+             {
+                 trainingSet.Add(GestureIO.ReadGestureFromFile(streamingAssetsPath + "/" + item));
+             }
+         }*/
     }
 
     // Update is called once per frame
@@ -157,8 +155,8 @@ public class Recognizer : MonoBehaviour
         {
             yield return request.SendWebRequest();
             string text = request.downloadHandler.text;
-            string gesture = text.ToString();
-            trainingSet.Add(GestureIO.ReadGestureFromXML(gesture));
+            //string gesture = text.ToString();
+            trainingSet.Add(GestureIO.ReadGestureFromXML(text));
         }
     }
 }
